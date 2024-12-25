@@ -1,0 +1,14 @@
+LineEdit
+MultiplayerSynchronizer
+Label
+Control
+AnimatedSprite2D
+Sprite2D
+CanvasLayer
+ColorRect
+TextureProgressBar
+SubViewportContainer
+SubViewport
+AudioStreamPlayer
+AnimationPlayer
+CollisionShape2D
