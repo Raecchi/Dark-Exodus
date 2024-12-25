@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c13el4o5qerp8"]
+
+[ext_resource type="FontFile" uid="uid://c43ioftsw4ki6" path="res://fonts/Pixel_NES.otf" id="1_sbap6"]
+
+[sub_resource type="Theme" id="Theme_xjmjy"]
+default_font = ExtResource("1_sbap6")
+
+[node name="Node2D" type="LineEdit"]
+offset_right = 248.0
+offset_bottom = 28.0
+theme = SubResource("Theme_xjmjy")
+placeholder_text = "help"
