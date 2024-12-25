@@ -1,0 +1,179 @@
+[gd_scene load_steps=22 format=3 uid="uid://c1q267slvt5rs"]
+
+[ext_resource type="Texture2D" uid="uid://b6rkh3vtuhwhm" path="res://sprites/right_player_update.png" id="1_d72i3"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_ik1xg"]
+
+[sub_resource type="Animation" id="Animation_pu7su"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2u84k"]
+resource_name = "h_swing"
+length = 0.250005
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_10pi5"]
+resource_name = "idle"
+length = 1.80001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_tdu56"]
+resource_name = "v_swing"
+length = 0.250005
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p8k18"]
+_data = {
+"RESET": SubResource("Animation_pu7su"),
+"h_swing": SubResource("Animation_2u84k"),
+"idle": SubResource("Animation_10pi5"),
+"v_swing": SubResource("Animation_tdu56")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtdic"]
+size = Vector2(64, 80)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oy6j4"]
+animation = &"h_swing"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gyl6i"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q46wa"]
+animation = &"v_swing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2e2n4"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o8r2l"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jgfvc"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gbi3l"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_18vlf"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_as6gy"]
+advance_condition = &"h_swing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h4adw"]
+advance_condition = &"v_swing"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8g5o5"]
+states/h_swing/node = SubResource("AnimationNodeAnimation_oy6j4")
+states/h_swing/position = Vector2(396, 184)
+states/idle/node = SubResource("AnimationNodeAnimation_gyl6i")
+states/idle/position = Vector2(469, 100)
+states/v_swing/node = SubResource("AnimationNodeAnimation_q46wa")
+states/v_swing/position = Vector2(541, 184)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_2e2n4"), "idle", "v_swing", SubResource("AnimationNodeStateMachineTransition_o8r2l"), "idle", "h_swing", SubResource("AnimationNodeStateMachineTransition_jgfvc"), "h_swing", "idle", SubResource("AnimationNodeStateMachineTransition_gbi3l"), "v_swing", "idle", SubResource("AnimationNodeStateMachineTransition_18vlf"), "h_swing", "v_swing", SubResource("AnimationNodeStateMachineTransition_as6gy"), "v_swing", "h_swing", SubResource("AnimationNodeStateMachineTransition_h4adw")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmw21"]
+size = Vector2(576, 512)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e2k5l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="player_red" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ik1xg")
+player_id = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d72i3")
+flip_h = true
+hframes = 4
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p8k18")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 24)
+shape = SubResource("RectangleShape2D_gtdic")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_8g5o5")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/h_swing = false
+parameters/conditions/v_swing = false
+
+[node name="detector" type="Node" parent="."]
+
+[node name="enemy_detector" type="Area2D" parent="detector"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detector/enemy_detector"]
+visible = false
+position = Vector2(992, 384)
+shape = SubResource("RectangleShape2D_hmw21")
+
+[node name="gust_spawner" type="Marker2D" parent="."]
+position = Vector2(8, 56)
+
+[node name="global" type="Node" parent="."]
+
+[node name="neutral_position" type="Marker2D" parent="global"]
+position = Vector2(1184, 320)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_e2k5l")
+
+[connection signal="body_entered" from="detector/enemy_detector" to="." method="_on_enemy_detector_body_entered"]
+[connection signal="body_exited" from="detector/enemy_detector" to="." method="_on_enemy_detector_body_exited"]

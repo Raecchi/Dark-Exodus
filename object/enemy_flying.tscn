@@ -1,0 +1,134 @@
+[gd_scene load_steps=13 format=3 uid="uid://l40dlpv8cj2d"]
+
+[ext_resource type="Script" path="res://scripts/enemy_flying.gd" id="1_6py4w"]
+[ext_resource type="Texture2D" uid="uid://dp1syxotg5mul" path="res://sprites/bug2.png" id="1_bpv1u"]
+[ext_resource type="LabelSettings" uid="uid://c3g7t3sn048l5" path="res://fonts/enemy_font.tres" id="3_af2nv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clwch"]
+atlas = ExtResource("1_bpv1u")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poq8s"]
+atlas = ExtResource("1_bpv1u")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjdhx"]
+atlas = ExtResource("1_bpv1u")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ud22u"]
+atlas = ExtResource("1_bpv1u")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_euml8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clwch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poq8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjdhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ud22u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbumt"]
+size = Vector2(17, 17)
+
+[sub_resource type="Animation" id="Animation_xtdc3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_23vel"]
+resource_name = "move"
+length = 0.50001
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 8), Vector2(0, -8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ve020"]
+_data = {
+"RESET": SubResource("Animation_xtdc3"),
+"move": SubResource("Animation_23vel")
+}
+
+[node name="enemy_flying" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_6py4w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_euml8")
+autoplay = "default"
+frame_progress = 0.613665
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_tbumt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ve020")
+}
+autoplay = "move"
+
+[node name="direction" type="Node" parent="."]
+
+[node name="left" type="Marker2D" parent="direction"]
+position = Vector2(-64, 320)
+
+[node name="right" type="Marker2D" parent="direction"]
+position = Vector2(1344, 320)
+
+[node name="life" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = -24.0
+
+[node name="ColorRect" type="ColorRect" parent="life"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -15.0
+offset_right = 48.0
+offset_bottom = 17.0
+color = Color(0, 0, 0, 0.372549)
+
+[node name="text" type="Label" parent="life"]
+layout_mode = 0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = 17.0
+label_settings = ExtResource("3_af2nv")
+horizontal_alignment = 1

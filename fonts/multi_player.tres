@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dam8laluhkqkl"]
+
+[ext_resource type="FontFile" uid="uid://c43ioftsw4ki6" path="res://fonts/Pixel_NES.otf" id="1_poxp1"]
+
+[resource]
+font = ExtResource("1_poxp1")
+font_size = 24

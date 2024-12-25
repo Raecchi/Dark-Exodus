@@ -1,0 +1,142 @@
+[gd_scene load_steps=18 format=3 uid="uid://c3tato32ah6k8"]
+
+[ext_resource type="Texture2D" uid="uid://bqwqfaf03bcic" path="res://sprites/bug1.png" id="1_jw3ge"]
+[ext_resource type="Script" path="res://scripts/enemy_normal.gd" id="1_p80li"]
+[ext_resource type="Texture2D" uid="uid://b3x44ebdpxrma" path="res://sprites/bug_blue.png" id="2_p5tye"]
+[ext_resource type="LabelSettings" uid="uid://c3g7t3sn048l5" path="res://fonts/enemy_font.tres" id="3_pj5qu"]
+[ext_resource type="Texture2D" uid="uid://3au0bova1c4n" path="res://sprites/bug_red.png" id="4_lr6un"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uk76"]
+atlas = ExtResource("2_p5tye")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pmee"]
+atlas = ExtResource("2_p5tye")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lmj3"]
+atlas = ExtResource("2_p5tye")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lthki"]
+atlas = ExtResource("1_jw3ge")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj8d1"]
+atlas = ExtResource("1_jw3ge")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mik27"]
+atlas = ExtResource("1_jw3ge")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oswy"]
+atlas = ExtResource("4_lr6un")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxy2c"]
+atlas = ExtResource("4_lr6un")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6oy53"]
+atlas = ExtResource("4_lr6un")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_odfg5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uk76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pmee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8lmj3")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lthki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj8d1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mik27")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4oswy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxy2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6oy53")
+}],
+"loop": true,
+"name": &"red",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1xwi"]
+size = Vector2(16, 18)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_brq6w"]
+properties/0/path = NodePath(".:hp")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="enemy_normal" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_p80li")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_odfg5")
+frame_progress = 0.718251
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 17)
+shape = SubResource("RectangleShape2D_b1xwi")
+
+[node name="direction" type="Node" parent="."]
+
+[node name="left" type="Marker2D" parent="direction"]
+position = Vector2(-64, 320)
+
+[node name="right" type="Marker2D" parent="direction"]
+position = Vector2(1344, 320)
+
+[node name="life" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = -40.0
+offset_right = 16.0
+offset_bottom = -16.0
+
+[node name="ColorRect" type="ColorRect" parent="life"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.372549)
+
+[node name="text" type="Label" parent="life"]
+layout_mode = 0
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 23.0
+label_settings = ExtResource("3_pj5qu")
+horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_brq6w")

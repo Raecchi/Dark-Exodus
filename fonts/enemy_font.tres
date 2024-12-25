@@ -1,0 +1,11 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c3g7t3sn048l5"]
+
+[ext_resource type="FontFile" uid="uid://c43ioftsw4ki6" path="res://fonts/Pixel_NES.otf" id="1_nv7ul"]
+
+[resource]
+font = ExtResource("1_nv7ul")
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)

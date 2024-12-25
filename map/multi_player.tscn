@@ -1,0 +1,356 @@
+[gd_scene load_steps=20 format=3 uid="uid://c7ti2raictf00"]
+
+[ext_resource type="Texture2D" uid="uid://djc3kx40c0vnr" path="res://sprites/multi_background.png" id="1_1l6xd"]
+[ext_resource type="Script" path="res://scripts/multi_player.gd" id="1_e6a56"]
+[ext_resource type="Texture2D" uid="uid://dqgf0dhd2u61k" path="res://sprites/multi_fore.png" id="2_h0p7w"]
+[ext_resource type="PackedScene" uid="uid://tc3u41mwoa1b" path="res://object/player_blue.tscn" id="3_2esfm"]
+[ext_resource type="FontFile" uid="uid://c43ioftsw4ki6" path="res://fonts/Pixel_NES.otf" id="3_4y35y"]
+[ext_resource type="LabelSettings" uid="uid://dam8laluhkqkl" path="res://fonts/multi_player.tres" id="3_akhe5"]
+[ext_resource type="PackedScene" uid="uid://c1q267slvt5rs" path="res://object/player_red.tscn" id="4_nye5m"]
+[ext_resource type="Texture2D" uid="uid://dmsnsh8seus0x" path="res://sprites/hp_under.png" id="4_x77ts"]
+[ext_resource type="Texture2D" uid="uid://crwxqu1fn2tk7" path="res://sprites/bar.png" id="5_37kyh"]
+[ext_resource type="Script" path="res://scripts/ui.mulit.gd" id="5_kfr3k"]
+[ext_resource type="Texture2D" uid="uid://j6sln3ep4yxf" path="res://sprites/hp_over.png" id="6_lbeni"]
+[ext_resource type="PackedScene" uid="uid://cjfv06lscx25g" path="res://object/spawner.tscn" id="9_l1xon"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_trx6i"]
+font = ExtResource("3_4y35y")
+font_size = 32
+
+[sub_resource type="Animation" id="Animation_lfk16"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2wpjs"]
+resource_name = "fade_in"
+length = 0.50001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nexx8"]
+resource_name = "fade_out"
+length = 0.50001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_31qu3"]
+_data = {
+"RESET": SubResource("Animation_lfk16"),
+"fade_in": SubResource("Animation_2wpjs"),
+"fade_out": SubResource("Animation_nexx8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25xts"]
+size = Vector2(64, 530)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2oki1"]
+size = Vector2(64, 522)
+
+[node name="multiplayer" type="Node2D"]
+script = ExtResource("1_e6a56")
+
+[node name="background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="MultiBackground" type="Sprite2D" parent="background"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("1_1l6xd")
+metadata/_edit_lock_ = true
+
+[node name="foreground" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="MultiFore" type="Sprite2D" parent="foreground"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("2_h0p7w")
+metadata/_edit_lock_ = true
+
+[node name="p1_won" type="Label" parent="foreground"]
+visible = false
+offset_left = 568.0
+offset_top = 288.0
+offset_right = 715.0
+offset_bottom = 327.0
+text = "p1 Won"
+label_settings = SubResource("LabelSettings_trx6i")
+horizontal_alignment = 1
+
+[node name="p1_won2" type="Label" parent="foreground"]
+visible = false
+offset_left = 568.0
+offset_top = 288.0
+offset_right = 715.0
+offset_bottom = 327.0
+text = "p2 Won"
+label_settings = SubResource("LabelSettings_trx6i")
+horizontal_alignment = 1
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 3
+script = ExtResource("5_kfr3k")
+
+[node name="top" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_right = 1288.0
+offset_bottom = 128.0
+metadata/_edit_lock_ = true
+
+[node name="P1_HP" type="Label" parent="UI/top"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 32.0
+offset_right = 96.0
+offset_bottom = 64.0
+text = "AP"
+label_settings = ExtResource("3_akhe5")
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="p1_bar" type="TextureProgressBar" parent="UI/top"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 32.0
+offset_right = 360.0
+offset_bottom = 56.0
+texture_under = ExtResource("4_x77ts")
+texture_progress = ExtResource("5_37kyh")
+metadata/_edit_lock_ = true
+
+[node name="P2_HP" type="Label" parent="UI/top"]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 32.0
+offset_right = 958.0
+offset_bottom = 61.0
+text = "AP"
+label_settings = ExtResource("3_akhe5")
+metadata/_edit_lock_ = true
+
+[node name="p2_bar" type="TextureProgressBar" parent="UI/top"]
+layout_mode = 0
+offset_left = 968.0
+offset_top = 32.0
+offset_right = 1224.0
+offset_bottom = 56.0
+texture_under = ExtResource("4_x77ts")
+texture_progress = ExtResource("5_37kyh")
+metadata/_edit_lock_ = true
+
+[node name="P1_spawn" type="Label" parent="UI/top"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 80.0
+offset_right = 96.0
+offset_bottom = 103.0
+text = "SP"
+label_settings = ExtResource("3_akhe5")
+metadata/_edit_lock_ = true
+
+[node name="p1_sp_bar" type="TextureProgressBar" parent="UI/top"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 80.0
+offset_right = 360.0
+offset_bottom = 104.0
+texture_under = ExtResource("4_x77ts")
+texture_progress = ExtResource("5_37kyh")
+metadata/_edit_lock_ = true
+
+[node name="P2_spawn" type="Label" parent="UI/top"]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 80.0
+offset_right = 960.0
+offset_bottom = 109.0
+text = "SP"
+label_settings = ExtResource("3_akhe5")
+metadata/_edit_lock_ = true
+
+[node name="p2_sp_bar" type="TextureProgressBar" parent="UI/top"]
+layout_mode = 0
+offset_left = 968.0
+offset_top = 80.0
+offset_right = 1224.0
+offset_bottom = 104.0
+texture_under = ExtResource("4_x77ts")
+texture_progress = ExtResource("5_37kyh")
+metadata/_edit_lock_ = true
+
+[node name="lvl" type="Label" parent="UI/top"]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 64.0
+offset_right = 681.0
+offset_bottom = 93.0
+text = "LVL ?"
+label_settings = ExtResource("3_akhe5")
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="bot" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="p1_pw" type="Label" parent="UI/bot"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 664.0
+offset_right = 104.0
+offset_bottom = 693.0
+text = "PW"
+label_settings = ExtResource("3_akhe5")
+horizontal_alignment = 1
+
+[node name="p1_bar" type="TextureProgressBar" parent="UI/bot"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 664.0
+offset_right = 368.0
+offset_bottom = 688.0
+texture_under = ExtResource("4_x77ts")
+texture_over = ExtResource("6_lbeni")
+texture_progress = ExtResource("5_37kyh")
+
+[node name="p2_pw" type="Label" parent="UI/bot"]
+layout_mode = 0
+offset_left = 928.0
+offset_top = 664.0
+offset_right = 968.0
+offset_bottom = 693.0
+text = "pw"
+label_settings = ExtResource("3_akhe5")
+horizontal_alignment = 1
+
+[node name="p2_bar" type="TextureProgressBar" parent="UI/bot"]
+layout_mode = 0
+offset_left = 976.0
+offset_top = 664.0
+offset_right = 1232.0
+offset_bottom = 688.0
+texture_under = ExtResource("4_x77ts")
+texture_over = ExtResource("6_lbeni")
+texture_progress = ExtResource("5_37kyh")
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="player_blue" parent="." instance=ExtResource("3_2esfm")]
+position = Vector2(96, 320)
+
+[node name="player_red" parent="." instance=ExtResource("4_nye5m")]
+position = Vector2(1184, 320)
+
+[node name="spawners" type="Node" parent="."]
+
+[node name="left_spawner1" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(576, 192)
+
+[node name="left_spawner2" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(576, 256)
+
+[node name="left_spawner3" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(576, 320)
+
+[node name="left_spawner4" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(576, 384)
+
+[node name="left_spawner5" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(576, 448)
+
+[node name="left_spawner6" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(576, 512)
+
+[node name="left_spawner7" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(576, 576)
+
+[node name="right_spawner1" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(704, 192)
+orientation = 2
+
+[node name="right_spawner2" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(704, 256)
+orientation = 2
+
+[node name="right_spawner4" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(704, 320)
+orientation = 2
+
+[node name="right_spawner3" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(704, 384)
+orientation = 2
+
+[node name="right_spawner5" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(704, 448)
+orientation = 2
+
+[node name="right_spawner6" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(704, 512)
+orientation = 2
+
+[node name="right_spawner7" parent="spawners" instance=ExtResource("9_l1xon")]
+position = Vector2(704, 576)
+orientation = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_31qu3")
+}
+
+[node name="lose_areas" type="Node2D" parent="."]
+
+[node name="left" type="Area2D" parent="lose_areas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lose_areas/left"]
+position = Vector2(-96, 383)
+shape = SubResource("RectangleShape2D_25xts")
+
+[node name="right" type="Area2D" parent="lose_areas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lose_areas/right"]
+position = Vector2(1376, 379)
+shape = SubResource("RectangleShape2D_2oki1")
+
+[connection signal="body_entered" from="lose_areas/left" to="." method="_on_left_body_entered"]
+[connection signal="body_entered" from="lose_areas/right" to="." method="_on_right_body_entered"]

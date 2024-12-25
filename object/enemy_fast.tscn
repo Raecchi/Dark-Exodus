@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://nr7g2ifsburt"]
+
+[ext_resource type="Texture2D" uid="uid://1qn7208rqd5s" path="res://sprites/bug3.png" id="1_5j0io"]
+[ext_resource type="Script" path="res://scripts/enemy_fast.gd" id="1_8o5ep"]
+[ext_resource type="LabelSettings" uid="uid://c3g7t3sn048l5" path="res://fonts/enemy_font.tres" id="3_nd8hc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41ryj"]
+atlas = ExtResource("1_5j0io")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wci76"]
+atlas = ExtResource("1_5j0io")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qbwg"]
+atlas = ExtResource("1_5j0io")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4h6me"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41ryj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wci76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qbwg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4d323"]
+size = Vector2(16, 16)
+
+[node name="enemy_fast" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_8o5ep")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4h6me")
+frame_progress = 0.222422
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_4d323")
+
+[node name="direction" type="Node" parent="."]
+
+[node name="left" type="Marker2D" parent="direction"]
+position = Vector2(-64, 320)
+
+[node name="right" type="Marker2D" parent="direction"]
+position = Vector2(1344, 320)
+
+[node name="life" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = -40.0
+offset_right = 16.0
+offset_bottom = -16.0
+
+[node name="ColorRect" type="ColorRect" parent="life"]
+layout_mode = 0
+offset_left = -16.0
+offset_right = 48.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0.372549)
+
+[node name="text" type="Label" parent="life"]
+layout_mode = 0
+offset_top = -8.0
+offset_right = 32.0
+offset_bottom = 21.0
+label_settings = ExtResource("3_nd8hc")
+horizontal_alignment = 1

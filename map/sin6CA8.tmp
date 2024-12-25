@@ -1,0 +1,151 @@
+[gd_scene load_steps=15 format=3 uid="uid://ccbatp6txes2n"]
+
+[ext_resource type="Script" path="res://scripts/single_player.gd" id="1_tnhfu"]
+[ext_resource type="Texture2D" uid="uid://2f4fswox5x4n" path="res://sprites/background_update.png" id="1_xmpm2"]
+[ext_resource type="Texture2D" uid="uid://d4e0ln42a7xub" path="res://sprites/background_fore1.png" id="2_m7ob2"]
+[ext_resource type="PackedScene" uid="uid://c3c21rri0uj27" path="res://object/player.tscn" id="3_q0s73"]
+[ext_resource type="Script" path="res://scripts/ui_single.gd" id="4_0qr6r"]
+[ext_resource type="FontFile" uid="uid://c43ioftsw4ki6" path="res://fonts/Pixel_NES.otf" id="4_af5gl"]
+[ext_resource type="Texture2D" uid="uid://dmsnsh8seus0x" path="res://sprites/hp_under.png" id="5_j0am2"]
+[ext_resource type="PackedScene" uid="uid://cjfv06lscx25g" path="res://object/spawner.tscn" id="5_u21pw"]
+[ext_resource type="Texture2D" uid="uid://crwxqu1fn2tk7" path="res://sprites/bar.png" id="6_cksvx"]
+[ext_resource type="Texture2D" uid="uid://j6sln3ep4yxf" path="res://sprites/hp_over.png" id="7_mp5j8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t01wf"]
+font = ExtResource("4_af5gl")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_6dusn"]
+font = ExtResource("4_af5gl")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ue4cc"]
+font = ExtResource("4_af5gl")
+font_size = 24
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tm6r7"]
+size = Vector2(66, 512)
+
+[node name="single_player" type="Node2D"]
+script = ExtResource("1_tnhfu")
+
+[node name="background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundUpdate" type="Sprite2D" parent="background"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("1_xmpm2")
+metadata/_edit_lock_ = true
+
+[node name="foreground" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="BackgroundFore1" type="Sprite2D" parent="foreground"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("2_m7ob2")
+metadata/_edit_lock_ = true
+
+[node name="UI_Single" type="CanvasLayer" parent="."]
+layer = 2
+script = ExtResource("4_0qr6r")
+
+[node name="top" type="Control" parent="UI_Single"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 128.0
+metadata/_edit_lock_ = true
+
+[node name="hp" type="Label" parent="UI_Single/top"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 77.0
+text = "AP"
+label_settings = SubResource("LabelSettings_t01wf")
+horizontal_alignment = 1
+
+[node name="level" type="Label" parent="UI_Single/top"]
+layout_mode = 0
+offset_left = 1072.0
+offset_top = 48.0
+offset_right = 1126.0
+offset_bottom = 77.0
+text = "Lvl ?"
+label_settings = SubResource("LabelSettings_6dusn")
+
+[node name="ProgressBar" type="TextureProgressBar" parent="UI_Single/top"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 48.0
+offset_right = 360.0
+offset_bottom = 75.0
+value = 100.0
+texture_under = ExtResource("5_j0am2")
+texture_progress = ExtResource("6_cksvx")
+
+[node name="bot" type="Control" parent="UI_Single"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 640.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="power" type="Label" parent="UI_Single/bot"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 24.0
+offset_right = 88.0
+offset_bottom = 53.0
+text = "Pw"
+label_settings = SubResource("LabelSettings_ue4cc")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI_Single/bot"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 24.0
+offset_right = 360.0
+offset_bottom = 48.0
+texture_under = ExtResource("5_j0am2")
+texture_over = ExtResource("7_mp5j8")
+texture_progress = ExtResource("6_cksvx")
+
+[node name="player" parent="." instance=ExtResource("3_q0s73")]
+position = Vector2(384, 384)
+
+[node name="lose_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lose_area"]
+position = Vector2(-64, 384)
+shape = SubResource("RectangleShape2D_tm6r7")
+
+[node name="spawners" type="Node" parent="."]
+
+[node name="spawner1" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 192)
+
+[node name="spawner2" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 256)
+
+[node name="spawner3" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 640)
+
+[node name="spawner4" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 320)
+
+[node name="spawner5" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 384)
+
+[node name="spawner6" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 448)
+
+[node name="spawner7" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 512)
+
+[node name="spawner8" parent="spawners" instance=ExtResource("5_u21pw")]
+position = Vector2(1280, 576)
+
+[connection signal="body_entered" from="lose_area" to="." method="_on_lose_area_body_entered"]

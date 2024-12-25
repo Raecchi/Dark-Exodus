@@ -1,0 +1,785 @@
+[gd_scene load_steps=75 format=3 uid="uid://cvlm1w05bnwo0"]
+
+[ext_resource type="Script" path="res://map/title_screen.gd" id="1_4r2w1"]
+[ext_resource type="Texture2D" uid="uid://d3vsddl30n7j5" path="res://sprites/title.png" id="1_wqwid"]
+[ext_resource type="Texture2D" uid="uid://dp1syxotg5mul" path="res://sprites/bug2.png" id="2_mnj2v"]
+[ext_resource type="FontFile" uid="uid://c43ioftsw4ki6" path="res://fonts/Pixel_NES.otf" id="4_pjqxk"]
+[ext_resource type="Texture2D" uid="uid://dmsnsh8seus0x" path="res://sprites/hp_under.png" id="5_gqakm"]
+[ext_resource type="Texture2D" uid="uid://j6sln3ep4yxf" path="res://sprites/hp_over.png" id="6_834dl"]
+[ext_resource type="Texture2D" uid="uid://crwxqu1fn2tk7" path="res://sprites/bar.png" id="7_fdarh"]
+[ext_resource type="Texture2D" uid="uid://bxytj4e6a1hkn" path="res://sprites/example.png" id="8_x2kvc"]
+[ext_resource type="Texture2D" uid="uid://c74v78olobpcj" path="res://sprites/left_player_update.png" id="9_67cr5"]
+[ext_resource type="Texture2D" uid="uid://b6rkh3vtuhwhm" path="res://sprites/right_player_update.png" id="10_38xtm"]
+[ext_resource type="Texture2D" uid="uid://bqwqfaf03bcic" path="res://sprites/bug1.png" id="11_0mtsl"]
+[ext_resource type="Texture2D" uid="uid://dkbmcvsrvlub" path="res://sprites/character_update.png" id="12_e08oa"]
+[ext_resource type="Texture2D" uid="uid://1qn7208rqd5s" path="res://sprites/bug3.png" id="13_3e03v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bsjde"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_cwt6x"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_mp52f"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_2vtsu"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_pstg6"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_n24v0"]
+font = ExtResource("4_pjqxk")
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6y3v"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt8wi"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jsc6"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lq2cg"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ewfoa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6y3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt8wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jsc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lq2cg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 40.0
+}]
+
+[sub_resource type="Animation" id="Animation_7sb1r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6j1gg"]
+resource_name = "fade_out"
+length = 0.50001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rokgr"]
+_data = {
+"RESET": SubResource("Animation_7sb1r"),
+"fade_out": SubResource("Animation_6j1gg")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_8cj1s"]
+font = ExtResource("4_pjqxk")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_etscu"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_ucc1t"]
+font = ExtResource("4_pjqxk")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_lt4ks"]
+font = ExtResource("4_pjqxk")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ehc5t"]
+font = ExtResource("4_pjqxk")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0i08i"]
+font = ExtResource("4_pjqxk")
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa63l"]
+atlas = ExtResource("9_67cr5")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xc07"]
+atlas = ExtResource("9_67cr5")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmtjj"]
+atlas = ExtResource("9_67cr5")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2r7o"]
+atlas = ExtResource("9_67cr5")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hunk1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa63l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xc07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmtjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2r7o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlb5n"]
+atlas = ExtResource("10_38xtm")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x330t"]
+atlas = ExtResource("10_38xtm")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbugs"]
+atlas = ExtResource("10_38xtm")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6jo0"]
+atlas = ExtResource("10_38xtm")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wkjyx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlb5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x330t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbugs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6jo0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iqrn1"]
+font = ExtResource("4_pjqxk")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_j2iyf"]
+font = ExtResource("4_pjqxk")
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uu57"]
+atlas = ExtResource("11_0mtsl")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l88df"]
+atlas = ExtResource("11_0mtsl")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nd8w1"]
+atlas = ExtResource("11_0mtsl")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cm7yw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uu57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l88df")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nd8w1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu2wh"]
+atlas = ExtResource("12_e08oa")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfa1o"]
+atlas = ExtResource("12_e08oa")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1neb"]
+atlas = ExtResource("12_e08oa")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bshgq"]
+atlas = ExtResource("12_e08oa")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y40j6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nu2wh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfa1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1neb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bshgq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7vwg"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4tfv"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dr0i5"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8oga8"]
+atlas = ExtResource("2_mnj2v")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sm2yn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7vwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4tfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dr0i5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8oga8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjpyn"]
+atlas = ExtResource("13_3e03v")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_771nv"]
+atlas = ExtResource("13_3e03v")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r144h"]
+atlas = ExtResource("13_3e03v")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tnciv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjpyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_771nv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r144h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qeecx"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_u1ubn"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1oae"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_8e7xg"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqbvf"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_jjy2j"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="Theme" id="Theme_mf54c"]
+default_font = ExtResource("4_pjqxk")
+
+[sub_resource type="Theme" id="Theme_8ext1"]
+default_font = ExtResource("4_pjqxk")
+
+[sub_resource type="LabelSettings" id="LabelSettings_r4l0g"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_esqeh"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_tt0xj"]
+font = ExtResource("4_pjqxk")
+font_size = 32
+
+[node name="title_screen" type="Node2D"]
+script = ExtResource("1_4r2w1")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
+offset_left = 480.0
+offset_top = 656.0
+offset_right = 736.0
+offset_bottom = 680.0
+max_value = 60.0
+texture_under = ExtResource("5_gqakm")
+texture_over = ExtResource("6_834dl")
+texture_progress = ExtResource("7_fdarh")
+metadata/_edit_lock_ = true
+
+[node name="background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(640, 216)
+texture = ExtResource("1_wqwid")
+metadata/_edit_lock_ = true
+
+[node name="mid" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="singleplayer" type="Label" parent="mid"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 440.0
+offset_right = 569.0
+offset_bottom = 480.0
+text = "SinglePlayer"
+label_settings = SubResource("LabelSettings_bsjde")
+metadata/_edit_lock_ = true
+
+[node name="multiplayer" type="Label" parent="mid"]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 440.0
+offset_right = 1040.0
+offset_bottom = 479.0
+text = "Multiplayer
+"
+label_settings = SubResource("LabelSettings_cwt6x")
+metadata/_edit_lock_ = true
+
+[node name="tutorial" type="Label" parent="mid"]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 536.0
+offset_right = 810.0
+offset_bottom = 575.0
+text = "How to play"
+label_settings = SubResource("LabelSettings_mp52f")
+metadata/_edit_lock_ = true
+
+[node name="credits" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="created" type="Label" parent="credits"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 648.0
+offset_right = 449.0
+offset_bottom = 687.0
+text = "Created by: CasuRAe"
+label_settings = SubResource("LabelSettings_2vtsu")
+metadata/_edit_lock_ = true
+
+[node name="music" type="Label" parent="credits"]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 648.0
+offset_right = 1270.0
+offset_bottom = 687.0
+text = "Music by: David Renda"
+label_settings = SubResource("LabelSettings_pstg6")
+metadata/_edit_lock_ = true
+
+[node name="control" type="Label" parent="credits"]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 624.0
+offset_right = 532.0
+offset_bottom = 653.0
+text = "[z]"
+label_settings = SubResource("LabelSettings_n24v0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(240, 456)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_ewfoa")
+autoplay = "default"
+frame_progress = 0.652853
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rokgr")
+}
+
+[node name="How_to_play" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="ColorRect" type="ColorRect" parent="How_to_play"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1240.0
+offset_bottom = 680.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="exit" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 656.0
+offset_right = 1232.0
+offset_bottom = 685.0
+text = "Hold and release to exit"
+label_settings = SubResource("LabelSettings_8cj1s")
+metadata/_edit_lock_ = true
+
+[node name="Example" type="Sprite2D" parent="How_to_play"]
+position = Vector2(636.974, 257.445)
+scale = Vector2(1.05128, 1.10924)
+texture = ExtResource("8_x2kvc")
+metadata/_edit_lock_ = true
+
+[node name="Help" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 32.0
+offset_right = 770.0
+offset_bottom = 71.0
+text = "How to play"
+label_settings = SubResource("LabelSettings_etscu")
+metadata/_edit_lock_ = true
+
+[node name="Top" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 120.0
+offset_right = 1168.0
+offset_bottom = 149.0
+text = "Enemies has two types of health. Dots ( ' ) and dashes ( - )."
+label_settings = SubResource("LabelSettings_ucc1t")
+autowrap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Mid" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 552.0
+offset_right = 1216.0
+offset_bottom = 613.0
+text = "Charge the bar respectively to damage each type of health, attacking the leftmost type of health."
+label_settings = SubResource("LabelSettings_lt4ks")
+autowrap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Bot" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 624.0
+offset_right = 520.0
+offset_bottom = 647.0
+text = "Dots     Dashes"
+label_settings = SubResource("LabelSettings_ehc5t")
+metadata/_edit_lock_ = true
+
+[node name="mid mid" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 408.0
+offset_right = 1112.0
+offset_bottom = 437.0
+text = "Attacks the leftmost / rightmost enemy on the screen."
+label_settings = SubResource("LabelSettings_0i08i")
+metadata/_edit_lock_ = true
+
+[node name="blue" type="AnimatedSprite2D" parent="How_to_play"]
+position = Vector2(384, 256)
+sprite_frames = SubResource("SpriteFrames_hunk1")
+autoplay = "default"
+frame_progress = 0.701183
+metadata/_edit_lock_ = true
+
+[node name="red" type="AnimatedSprite2D" parent="How_to_play"]
+position = Vector2(896, 256)
+sprite_frames = SubResource("SpriteFrames_wkjyx")
+autoplay = "default"
+frame_progress = 0.304623
+metadata/_edit_lock_ = true
+
+[node name="Z" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 256.0
+offset_right = 288.0
+offset_bottom = 288.0
+text = "[z]"
+label_settings = SubResource("LabelSettings_iqrn1")
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="How_to_play"]
+layout_mode = 0
+offset_left = 992.0
+offset_top = 256.0
+offset_right = 1056.0
+offset_bottom = 317.0
+text = "Num
+1"
+label_settings = SubResource("LabelSettings_j2iyf")
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="bug1" type="AnimatedSprite2D" parent="How_to_play"]
+position = Vector2(384, 496)
+sprite_frames = SubResource("SpriteFrames_cm7yw")
+frame_progress = 0.738925
+metadata/_edit_lock_ = true
+
+[node name="grery" type="AnimatedSprite2D" parent="How_to_play"]
+position = Vector2(128, 256)
+sprite_frames = SubResource("SpriteFrames_y40j6")
+autoplay = "default"
+frame_progress = 0.846978
+metadata/_edit_lock_ = true
+
+[node name="flying" type="AnimatedSprite2D" parent="How_to_play"]
+position = Vector2(608, 496)
+sprite_frames = SubResource("SpriteFrames_sm2yn")
+autoplay = "default"
+frame_progress = 0.0968586
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="How_to_play"]
+position = Vector2(896, 496)
+sprite_frames = SubResource("SpriteFrames_tnciv")
+autoplay = "default"
+frame_progress = 0.00377089
+metadata/_edit_lock_ = true
+
+[node name="Multiplayer" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Local" type="Label" parent="Multiplayer"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 440.0
+offset_right = 407.0
+offset_bottom = 479.0
+text = "Local"
+label_settings = SubResource("LabelSettings_qeecx")
+
+[node name="Online" type="Label" parent="Multiplayer"]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 440.0
+offset_right = 925.0
+offset_bottom = 479.0
+text = "Online"
+label_settings = SubResource("LabelSettings_u1ubn")
+
+[node name="back" type="Label" parent="Multiplayer"]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 536.0
+offset_right = 644.0
+offset_bottom = 575.0
+text = "Back"
+label_settings = SubResource("LabelSettings_h1oae")
+
+[node name="online" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Join" type="Label" parent="online"]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 440.0
+offset_right = 881.0
+offset_bottom = 479.0
+text = "Join"
+label_settings = SubResource("LabelSettings_8e7xg")
+
+[node name="Create" type="Label" parent="online"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 440.0
+offset_right = 429.0
+offset_bottom = 479.0
+text = "Create"
+label_settings = SubResource("LabelSettings_bqbvf")
+
+[node name="back" type="Label" parent="online"]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 536.0
+offset_right = 644.0
+offset_bottom = 575.0
+text = "Back"
+label_settings = SubResource("LabelSettings_jjy2j")
+
+[node name="address" type="LineEdit" parent="online"]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 488.0
+offset_right = 1032.0
+offset_bottom = 519.0
+theme = SubResource("Theme_mf54c")
+placeholder_text = "Enter IP Address"
+
+[node name="name" type="LineEdit" parent="online"]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 520.0
+offset_right = 1032.0
+offset_bottom = 551.0
+theme = SubResource("Theme_8ext1")
+placeholder_text = "Enter Name"
+
+[node name="Lobby" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="player_detector" type="Label" parent="Lobby"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 440.0
+offset_right = 507.0
+offset_bottom = 479.0
+text = "No joined"
+label_settings = SubResource("LabelSettings_r4l0g")
+
+[node name="Start" type="Label" parent="Lobby"]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 440.0
+offset_right = 903.0
+offset_bottom = 479.0
+text = "Start"
+label_settings = SubResource("LabelSettings_esqeh")
+
+[node name="back" type="Label" parent="Lobby"]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 536.0
+offset_right = 644.0
+offset_bottom = 575.0
+text = "Back"
+label_settings = SubResource("LabelSettings_tt0xj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true

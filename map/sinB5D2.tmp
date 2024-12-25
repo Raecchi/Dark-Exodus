@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccbatp6txes2n"]
+
+[ext_resource type="Texture2D" uid="uid://2f4fswox5x4n" path="res://sprites/background_update.png" id="1_xmpm2"]
+[ext_resource type="Texture2D" uid="uid://d4e0ln42a7xub" path="res://sprites/background_fore1.png" id="2_m7ob2"]
+[ext_resource type="PackedScene" uid="uid://c3c21rri0uj27" path="res://object/player.tscn" id="3_q0s73"]
+[ext_resource type="PackedScene" uid="uid://c3tato32ah6k8" path="res://object/enemy_normal.tscn" id="4_0xuxl"]
+
+[node name="single_player" type="Node2D"]
+
+[node name="background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundUpdate" type="Sprite2D" parent="background"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("1_xmpm2")
+
+[node name="foreground" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="BackgroundFore1" type="Sprite2D" parent="foreground"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("2_m7ob2")
+
+[node name="player" parent="." instance=ExtResource("3_q0s73")]
+position = Vector2(384, 384)
+pattern_string = null
+
+[node name="enemy_normal" parent="." instance=ExtResource("4_0xuxl")]
+position = Vector2(1104, 424)
+pattern_string = ".."
+
+[node name="enemy_normal2" parent="." instance=ExtResource("4_0xuxl")]
+position = Vector2(984, 304)
+pattern_string = ".-"
+
+[node name="enemy_normal3" parent="." instance=ExtResource("4_0xuxl")]
+position = Vector2(1032, 512)
+pattern_string = "-."
